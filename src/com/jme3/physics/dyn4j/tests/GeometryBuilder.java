@@ -31,11 +31,16 @@
  */
 package com.jme3.physics.dyn4j.tests;
 
+import org.dyn4j.dynamics.Body;
+import org.dyn4j.geometry.Rectangle;
+
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState.FaceCullMode;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
+import com.jme3.physics.dyn4j.Dyn4jAppState;
+import com.jme3.physics.dyn4j.control.Dyn4jBodyControl;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
@@ -86,6 +91,30 @@ public class GeometryBuilder {
         boxGeom.setMaterial(boxMat);
 
         return boxGeom;
+    }
+
+    public Body createBoxWithPhysic(final Node parentNode, final Dyn4jAppState dyn4jAppState, final float posX,
+            final float posY) {
+        // Create box.
+        final Spatial boxGeom = createBox(.5f, .5f, .5f, posX, posY);
+        parentNode.attachChild(boxGeom);
+
+        // Create rectangle physic object for the box.
+        final Rectangle boxShape = new Rectangle(1.0, 1.0);
+        final Body boxPhysic = new Body();
+        boxPhysic.addFixture(boxShape);
+
+        // Important!: Always call setMass in order to compute object's mass.
+        boxPhysic.setMass();
+
+        boxPhysic.translate(posX, posY);
+
+        // Add control to boxGeom.
+        boxGeom.addControl(new Dyn4jBodyControl(boxPhysic));
+
+        dyn4jAppState.getPhysicsSpace().addBody(boxPhysic);
+
+        return boxPhysic;
     }
 
     public Spatial createSquaredPyramid(final float baseWidth, final float height, final float posX, final float posY) {

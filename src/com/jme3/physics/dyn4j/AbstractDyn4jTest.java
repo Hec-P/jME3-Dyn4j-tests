@@ -32,6 +32,7 @@
 package com.jme3.physics.dyn4j;
 
 import org.dyn4j.collision.AxisAlignedBounds;
+import org.dyn4j.dynamics.Body;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.input.KeyInput;
@@ -48,9 +49,11 @@ import com.jme3.physics.dyn4j.tests.PhysicObjectBuilder;
 public abstract class AbstractDyn4jTest extends SimpleApplication {
 
     private static final String ACTION_ENABLE_DEBUG = "enableDebug";
+    private static final String ACTION_ENABLE_PHYSIC = "enablePhysic";
 
     protected Dyn4jAppState dyn4jAppState = null;
     private boolean debugEnabled = true;
+    private boolean physicEnabled = true;
 
     protected GeometryBuilder geometryBuilder = null;
     protected PhysicObjectBuilder physicObjectBuilder = null;
@@ -62,6 +65,10 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
                 AbstractDyn4jTest.this.debugEnabled = !AbstractDyn4jTest.this.debugEnabled;
                 AbstractDyn4jTest.this.dyn4jAppState.setDebugEnabled(AbstractDyn4jTest.this.debugEnabled);
             }
+            if (name.equals(ACTION_ENABLE_PHYSIC) && !keyPressed) {
+                AbstractDyn4jTest.this.physicEnabled = !AbstractDyn4jTest.this.physicEnabled;
+                AbstractDyn4jTest.this.dyn4jAppState.setEnabled(AbstractDyn4jTest.this.physicEnabled);
+            }
         }
     };
 
@@ -72,7 +79,10 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
         // order to improve calculations performance.
         this.dyn4jAppState = new Dyn4jAppState(new AxisAlignedBounds(30, 30));
         this.dyn4jAppState.setDebugEnabled(this.debugEnabled);
+        this.dyn4jAppState.setEnabled(this.physicEnabled);
         this.stateManager.attach(this.dyn4jAppState);
+
+        setDisplayStatView(false);
 
         // Initialize builder classes.
         this.geometryBuilder = new GeometryBuilder(this.assetManager);
@@ -93,15 +103,22 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
         this.debugEnabled = debugEnabled;
     }
 
-    private void initKeys() {
-        this.inputManager.addMapping(ACTION_ENABLE_DEBUG, new KeyTrigger(KeyInput.KEY_1));
-
-        this.inputManager.addListener(this.actionListener, ACTION_ENABLE_DEBUG);
+    public void setPhysicEnabled(final boolean physicEnabled) {
+        this.physicEnabled = physicEnabled;
     }
 
-    protected void createFloor(final float width, final float height, final float posX, final float posY) {
+    private void initKeys() {
+        this.inputManager.addMapping(ACTION_ENABLE_DEBUG, new KeyTrigger(KeyInput.KEY_1));
+        this.inputManager.addMapping(ACTION_ENABLE_PHYSIC, new KeyTrigger(KeyInput.KEY_2));
+
+        this.inputManager.addListener(this.actionListener, ACTION_ENABLE_DEBUG, ACTION_ENABLE_PHYSIC);
+    }
+
+    protected Body createFloor(final float width, final float height, final float posX, final float posY) {
         this.rootNode.attachChild(this.geometryBuilder.createFloor(width / 2, height / 2, posX, posY));
-        this.dyn4jAppState.getPhysicsSpace().addBody(this.physicObjectBuilder.createFloor(width, height, posX, posY));
+        final Body floorBody = this.physicObjectBuilder.createFloor(width, height, posX, posY);
+        this.dyn4jAppState.getPhysicsSpace().addBody(floorBody);
+        return floorBody;
     }
 
 }

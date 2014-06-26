@@ -67,10 +67,9 @@ public class TestSquaredPyramidStack extends AbstractDyn4jTest {
 
         for (int i = 0; i < 5; i++) {
 
-            final Body trianglePhysicPhysic = this.physicObjectBuilder.createBody(triangleShape);
             final float posX = 0;
             final float posY = 2 + i * 1.2f;
-            trianglePhysicPhysic.translate(posX, posY);
+            final Body trianglePhysicPhysic = this.physicObjectBuilder.createBody(triangleShape, posX, posY);
 
             // Create box.
             final Spatial squaredPyramidGeom = this.geometryBuilder.createSquaredPyramid(squaredPyramid, posX, posY);

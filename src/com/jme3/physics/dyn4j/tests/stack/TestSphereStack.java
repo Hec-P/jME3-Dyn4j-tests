@@ -65,10 +65,9 @@ public class TestSphereStack extends AbstractDyn4jTest {
 
         for (int i = 0; i < 5; i++) {
 
-            final Body spherePhysic = this.physicObjectBuilder.createBody(circleShape);
             final float posX = 0;
             final float posY = 2 + i * 1.2f;
-            spherePhysic.translate(posX, posY);
+            final Body spherePhysic = this.physicObjectBuilder.createBody(circleShape, posX, posY);
 
             // Create sphere.
             final Spatial sphereGeom = this.geometryBuilder.createSphere(sphere, posX, posY);

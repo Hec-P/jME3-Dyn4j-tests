@@ -94,10 +94,7 @@ public class TestBoxPyramid extends AbstractDyn4jTest {
             // loop to create the bodies in the rows
             for (int j = 0; j < num; j++) {
                 // create a body
-                final Body boxPhysic = this.physicObjectBuilder.createBody(boxShape);
-
-                // move it to the right position
-                boxPhysic.translate(posX, posY);
+                final Body boxPhysic = this.physicObjectBuilder.createBody(boxShape, posX, posY);
 
                 // Create box.
                 final Spatial boxGeom = this.geometryBuilder.createBox(box, posX, posY);

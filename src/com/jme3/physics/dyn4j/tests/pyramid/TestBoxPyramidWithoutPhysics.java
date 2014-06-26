@@ -54,7 +54,7 @@ public class TestBoxPyramidWithoutPhysics extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
-        this.geometryBuilder = new GeometryBuilder(this.assetManager);
+        this.geometryBuilder = new GeometryBuilder(this.assetManager, null);
 
         getCamera().setLocation(new Vector3f(0, 5, 20));
 

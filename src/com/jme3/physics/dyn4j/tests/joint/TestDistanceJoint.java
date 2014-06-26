@@ -33,8 +33,8 @@ public class TestDistanceJoint extends AbstractDyn4jTest {
         // Create box.
         final Body boxPhysic = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, -10, 1.5f);
 
-        final Vector2 anchor1 = this.floorBody.getWorldCenter().add(-7, 0);
-        final Vector2 anchor2 = boxPhysic.getWorldCenter().add(-.5d, .5d);
+        final Vector2 anchor1 = this.floorBody.getWorldCenter().copy().add(-7, 0);
+        final Vector2 anchor2 = boxPhysic.getWorldCenter().copy().add(-.5d, .5d);
 
         final DistanceJoint distanceJoint = new DistanceJoint(this.floorBody, boxPhysic, anchor1, anchor2);
         distanceJoint.setCollisionAllowed(true);
@@ -46,8 +46,8 @@ public class TestDistanceJoint extends AbstractDyn4jTest {
         // Create box.
         final Body boxPhysic = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, 0, 2.5f);
 
-        final Vector2 anchor1 = this.floorBody.getWorldCenter().add(-3, 0);
-        final Vector2 anchor2 = boxPhysic.getWorldCenter();
+        final Vector2 anchor1 = this.floorBody.getWorldCenter().copy().add(-3, 0);
+        final Vector2 anchor2 = boxPhysic.getWorldCenter().copy();
 
         final DistanceJoint distanceJoint = new DistanceJoint(this.floorBody, boxPhysic, anchor1, anchor2);
         distanceJoint.setCollisionAllowed(true);
@@ -59,8 +59,8 @@ public class TestDistanceJoint extends AbstractDyn4jTest {
         // Create box.
         final Body boxPhysic = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, 3, 2.5f);
 
-        final Vector2 anchor1 = this.floorBody.getWorldCenter().add(3, 0);
-        final Vector2 anchor2 = boxPhysic.getWorldCenter();
+        final Vector2 anchor1 = this.floorBody.getWorldCenter().copy().add(3, 0);
+        final Vector2 anchor2 = boxPhysic.getWorldCenter().copy();
 
         final DistanceJoint distanceJoint = new DistanceJoint(this.floorBody, boxPhysic, anchor1, anchor2);
         distanceJoint.setCollisionAllowed(true);
@@ -75,8 +75,8 @@ public class TestDistanceJoint extends AbstractDyn4jTest {
         final Body boxPhysic1 = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, 3, 12);
         final Body boxPhysic2 = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, 3, 10);
 
-        final Vector2 anchor1 = boxPhysic1.getWorldCenter();
-        final Vector2 anchor2 = boxPhysic2.getWorldCenter();
+        final Vector2 anchor1 = boxPhysic1.getWorldCenter().copy();
+        final Vector2 anchor2 = boxPhysic2.getWorldCenter().copy();
 
         final DistanceJoint distanceJoint = new DistanceJoint(boxPhysic1, boxPhysic2, anchor1, anchor2);
 

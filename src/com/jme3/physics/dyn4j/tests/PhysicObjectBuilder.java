@@ -33,6 +33,7 @@ package com.jme3.physics.dyn4j.tests;
 
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
+import org.dyn4j.geometry.Circle;
 import org.dyn4j.geometry.Convex;
 import org.dyn4j.geometry.Mass;
 import org.dyn4j.geometry.Rectangle;
@@ -44,6 +45,11 @@ import org.dyn4j.geometry.Rectangle;
 public class PhysicObjectBuilder {
 
     public Body createFloor(final double width, final double height, final double posX, final double posY) {
+        return createFloor(width, height, posX, posY, 0);
+    }
+
+    public Body createFloor(final double width, final double height, final double posX, final double posY,
+            final double rotation) {
         final Rectangle floorShape = new Rectangle(width, height);
 
         final Body floorPhysic = new Body();
@@ -51,15 +57,32 @@ public class PhysicObjectBuilder {
         floorPhysic.setMass(Mass.Type.INFINITE);
         floorPhysic.translate(posX, posY);
 
+        if (rotation != 0) {
+            floorPhysic.rotate(rotation, floorPhysic.getWorldCenter());
+        }
+
         return floorPhysic;
     }
 
-    public Body createBody(final Convex shape) {
+    public Body createBody(final Convex shape, final double posX, final double posY) {
         final Body bodyPhysic = new Body();
         bodyPhysic.addFixture(shape);
         bodyPhysic.setMass();
+        bodyPhysic.translate(posX, posY);
 
         return bodyPhysic;
+    }
+
+    public Body createRectangle(final double width, final double height, final double posX, final double posY) {
+        final Rectangle shape = new Rectangle(width, height);
+        final Body body = createBody(shape, posX, posY);
+        return body;
+    }
+
+    public Body createCircle(final double radius, final double posX, final double posY) {
+        final Circle shape = new Circle(radius);
+        final Body body = createBody(shape, posX, posY);
+        return body;
     }
 
 }

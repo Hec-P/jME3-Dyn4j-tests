@@ -85,8 +85,8 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
         setDisplayStatView(false);
 
         // Initialize builder classes.
-        this.geometryBuilder = new GeometryBuilder(this.assetManager);
         this.physicObjectBuilder = new PhysicObjectBuilder();
+        this.geometryBuilder = new GeometryBuilder(this.assetManager, this.physicObjectBuilder);
 
         // Change flyCamera move speed.
         getFlyByCamera().setMoveSpeed(10);
@@ -115,8 +115,13 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
     }
 
     protected Body createFloor(final float width, final float height, final float posX, final float posY) {
-        this.rootNode.attachChild(this.geometryBuilder.createFloor(width / 2, height / 2, posX, posY));
-        final Body floorBody = this.physicObjectBuilder.createFloor(width, height, posX, posY);
+        return createFloor(width, height, posX, posY, 0);
+    }
+
+    protected Body createFloor(final float width, final float height, final float posX, final float posY,
+            final float rotation) {
+        this.rootNode.attachChild(this.geometryBuilder.createFloor(width / 2, height / 2, posX, posY, rotation));
+        final Body floorBody = this.physicObjectBuilder.createFloor(width, height, posX, posY, rotation);
         this.dyn4jAppState.getPhysicsSpace().addBody(floorBody);
         return floorBody;
     }

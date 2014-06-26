@@ -62,10 +62,9 @@ public class TestCapsuleStack extends AbstractDyn4jTest {
 
         for (int i = 0; i < 5; i++) {
 
-            final Body capsulePhysic = this.physicObjectBuilder.createBody(capsuleShape);
             final float posX = 0;
             final float posY = 2 + i * 2.5f;
-            capsulePhysic.translate(posX, posY);
+            final Body capsulePhysic = this.physicObjectBuilder.createBody(capsuleShape, posX, posY);
 
             // Create sphere.
             final Spatial capsuleGeom = this.geometryBuilder.createCapsule(.25f, 1, posX, posY);

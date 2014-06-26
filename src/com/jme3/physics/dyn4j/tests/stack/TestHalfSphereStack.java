@@ -65,10 +65,9 @@ public class TestHalfSphereStack extends AbstractDyn4jTest {
 
         for (int i = 0; i < 5; i++) {
 
-            final Body halfEllipsePhysic = this.physicObjectBuilder.createBody(halfEllipseShape);
             final float posX = 0;
             final float posY = 2 + i * 1.2f;
-            halfEllipsePhysic.translate(posX, posY);
+            final Body halfEllipsePhysic = this.physicObjectBuilder.createBody(halfEllipseShape, posX, posY);
 
             // Create half ellipse.
             final Spatial halfEllipseGeom = this.geometryBuilder.createHalfEllipse(halfEllipse, 2, posX, posY);

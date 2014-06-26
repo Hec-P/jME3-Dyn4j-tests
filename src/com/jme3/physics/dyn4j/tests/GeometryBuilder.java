@@ -32,7 +32,6 @@
 package com.jme3.physics.dyn4j.tests;
 
 import org.dyn4j.dynamics.Body;
-import org.dyn4j.geometry.Rectangle;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
@@ -49,6 +48,7 @@ import com.jme3.scene.shape.Cylinder;
 import com.jme3.scene.shape.Dome;
 import com.jme3.scene.shape.Quad;
 import com.jme3.scene.shape.Sphere;
+import com.jme3.texture.Texture;
 
 /**
  * 
@@ -57,20 +57,36 @@ import com.jme3.scene.shape.Sphere;
 public class GeometryBuilder {
 
     private AssetManager assetManager = null;
+    private PhysicObjectBuilder physicObjectBuilder = null;
 
-    public GeometryBuilder(final AssetManager assetManager) {
+    public GeometryBuilder(final AssetManager assetManager, final PhysicObjectBuilder physicObjectBuilder) {
         this.assetManager = assetManager;
+        this.physicObjectBuilder = physicObjectBuilder;
     }
 
     public Spatial createFloor(final float width, final float height, final float posX, final float posY) {
+        return createFloor(width, height, posX, posY, 0);
+    }
+
+    public Spatial createFloor(final float width, final float height, final float posX, final float posY,
+            final float rotation) {
         final Box floor = new Box(width, height, 1f);
 
+        final Texture floorTexture = this.assetManager.loadTexture("Textures/grass/grass-color-1_512x512.jpg");
+        // TODO La textura se ve mal, tengo que arreglarla
+        // floorTexture.setWrap(Texture.WrapMode.Repeat);
+        // floor.scaleTextureCoordinates(new Vector2f(width, height));
+
         final Material floorMat = new Material(this.assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        floorMat.setTexture("ColorMap", this.assetManager.loadTexture("Textures/grass/grass-color-1_512x512.jpg"));
+        floorMat.setTexture("ColorMap", floorTexture);
 
         final Geometry floorGeom = new Geometry("Floor", floor);
         floorGeom.move(new Vector3f(posX, posY, 0));
         floorGeom.setMaterial(floorMat);
+
+        if (rotation != 0) {
+            floorGeom.rotate(0, 0, rotation);
+        }
 
         return floorGeom;
     }
@@ -100,14 +116,7 @@ public class GeometryBuilder {
         parentNode.attachChild(boxGeom);
 
         // Create rectangle physic object for the box.
-        final Rectangle boxShape = new Rectangle(1.0, 1.0);
-        final Body boxPhysic = new Body();
-        boxPhysic.addFixture(boxShape);
-
-        // Important!: Always call setMass in order to compute object's mass.
-        boxPhysic.setMass();
-
-        boxPhysic.translate(posX, posY);
+        final Body boxPhysic = this.physicObjectBuilder.createRectangle(1, 1, posX, posY);
 
         // Add control to boxGeom.
         boxGeom.addControl(new Dyn4jBodyControl(boxPhysic));
@@ -154,6 +163,23 @@ public class GeometryBuilder {
         sphereGeom.setMaterial(sphereMat);
 
         return sphereGeom;
+    }
+
+    public Body createSphereWithPhysic(final Node parentNode, final Dyn4jAppState dyn4jAppState, final float radius,
+            final float posX, final float posY) {
+        // Create sphere
+        final Spatial sphereGeom = createSphere(radius, posX, posY);
+        parentNode.attachChild(sphereGeom);
+
+        // Create physic object
+        final Body sphereBody = this.physicObjectBuilder.createCircle(radius, posX, posY);
+
+        // Add control to sphereGeom.
+        sphereGeom.addControl(new Dyn4jBodyControl(sphereBody));
+
+        dyn4jAppState.getPhysicsSpace().addBody(sphereBody);
+
+        return sphereBody;
     }
 
     public Spatial createCapsule(final float width, final float height, final float posX, final float posY) {

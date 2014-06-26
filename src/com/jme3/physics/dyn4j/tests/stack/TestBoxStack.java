@@ -65,10 +65,9 @@ public class TestBoxStack extends AbstractDyn4jTest {
 
         for (int i = 0; i < 5; i++) {
 
-            final Body boxPhysic = this.physicObjectBuilder.createBody(boxShape);
             final float posX = 0;
             final float posY = 2 + i * 1.2f;
-            boxPhysic.translate(posX, posY);
+            final Body boxPhysic = this.physicObjectBuilder.createBody(boxShape, posX, posY);
 
             // Create box.
             final Spatial boxGeom = this.geometryBuilder.createBox(box, posX, posY);

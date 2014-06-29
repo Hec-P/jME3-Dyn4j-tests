@@ -17,9 +17,7 @@ import com.jme3.scene.shape.Sphere;
 public class TestDistanceJointNewtonsCradle extends AbstractDyn4jTest {
 
     public static void main(final String[] args) {
-        final TestDistanceJointNewtonsCradle app = new TestDistanceJointNewtonsCradle();
-        app.setPhysicEnabled(false);
-        app.start();
+        new TestDistanceJointNewtonsCradle().start();
     }
 
     @Override

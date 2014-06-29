@@ -10,9 +10,7 @@ import com.jme3.physics.dyn4j.AbstractDyn4jTest;
 public class TestDistanceJointCollision extends AbstractDyn4jTest {
 
     public static void main(final String[] args) {
-        final TestDistanceJointCollision app = new TestDistanceJointCollision();
-        app.setPhysicEnabled(false);
-        app.start();
+        new TestDistanceJointCollision().start();
     }
 
     @Override

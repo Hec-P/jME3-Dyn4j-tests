@@ -12,9 +12,7 @@ public class TestDistanceJoint extends AbstractDyn4jTest {
     private Body floorBody;
 
     public static void main(final String[] args) {
-        final TestDistanceJoint app = new TestDistanceJoint();
-        app.setPhysicEnabled(false);
-        app.start();
+        new TestDistanceJoint().start();
     }
 
     @Override

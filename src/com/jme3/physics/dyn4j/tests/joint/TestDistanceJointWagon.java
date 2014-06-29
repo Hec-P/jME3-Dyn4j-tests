@@ -10,9 +10,7 @@ import com.jme3.physics.dyn4j.AbstractDyn4jTest;
 public class TestDistanceJointWagon extends AbstractDyn4jTest {
 
     public static void main(final String[] args) {
-        final TestDistanceJointWagon app = new TestDistanceJointWagon();
-        app.setPhysicEnabled(false);
-        app.start();
+        new TestDistanceJointWagon().start();
     }
 
     @Override

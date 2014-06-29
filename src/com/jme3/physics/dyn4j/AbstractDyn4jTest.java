@@ -35,10 +35,10 @@ import org.dyn4j.collision.AxisAlignedBounds;
 import org.dyn4j.dynamics.Body;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.cursors.plugins.JmeCursor;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.math.Vector3f;
 import com.jme3.physics.dyn4j.tests.GeometryBuilder;
 import com.jme3.physics.dyn4j.tests.PhysicObjectBuilder;
 
@@ -53,7 +53,7 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
 
     protected Dyn4jAppState dyn4jAppState = null;
     private boolean debugEnabled = true;
-    private boolean physicEnabled = true;
+    private boolean physicEnabled = false;
 
     protected GeometryBuilder geometryBuilder = null;
     protected PhysicObjectBuilder physicObjectBuilder = null;
@@ -88,9 +88,12 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
         this.physicObjectBuilder = new PhysicObjectBuilder();
         this.geometryBuilder = new GeometryBuilder(this.assetManager, this.physicObjectBuilder);
 
+        this.flyCam.setEnabled(false);
+        // this.inputManager.setCursorVisible(false);
+        this.inputManager.setMouseCursor((JmeCursor) this.assetManager.loadAsset("Textures/Cursors/Green-cursor.cur"));
         // Change flyCamera move speed.
-        getFlyByCamera().setMoveSpeed(10);
-        getCamera().setLocation(new Vector3f(0, 10, 40));
+        // getFlyByCamera().setMoveSpeed(10);
+        // getCamera().setLocation(new Vector3f(0, 10, 40));
 
         initKeys();
 

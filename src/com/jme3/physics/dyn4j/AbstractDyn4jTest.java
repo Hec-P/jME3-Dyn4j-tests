@@ -52,6 +52,7 @@ import com.jme3.physics.dyn4j.control.Dyn4jBodyControl;
 import com.jme3.physics.dyn4j.tests.GeometryBuilder;
 import com.jme3.physics.dyn4j.tests.PhysicObjectBuilder;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 
 /**
  * 
@@ -189,7 +190,7 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
                         AbstractDyn4jTest.this.contactPoint = closest.getContactPoint();
 
                         // Create MouseJoint
-                        final Dyn4jBodyControl control = closest.getGeometry().getControl(Dyn4jBodyControl.class);
+                        final Dyn4jBodyControl control = getDyn4jBodyControl(closest.getGeometry());
                         if (control != null) {
                             final Body body = control.getBody();
                             double mass = body.getMass().getMass();
@@ -220,6 +221,14 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
                 }
 
             }
+        }
+
+        private Dyn4jBodyControl getDyn4jBodyControl(final Spatial spatial) {
+            Dyn4jBodyControl control = spatial.getControl(Dyn4jBodyControl.class);
+            if (control == null && spatial.getParent() != null) {
+                control = getDyn4jBodyControl(spatial.getParent());
+            }
+            return control;
         }
     };
 

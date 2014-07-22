@@ -98,7 +98,7 @@ public class TestBoxPyramid extends AbstractDyn4jTest {
 
                 // Create box.
                 final Spatial boxGeom = this.geometryBuilder.createBox(box, posX, posY);
-                this.rootNode.attachChild(boxGeom);
+                this.dynamicObjects.attachChild(boxGeom);
 
                 // Add control to boxGeom.
                 boxGeom.addControl(new Dyn4jBodyControl(boxPhysic));

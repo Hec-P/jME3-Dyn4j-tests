@@ -71,7 +71,7 @@ public class TestHalfSphereStack extends AbstractDyn4jTest {
 
             // Create half ellipse.
             final Spatial halfEllipseGeom = this.geometryBuilder.createHalfEllipse(halfEllipse, 2, posX, posY);
-            this.rootNode.attachChild(halfEllipseGeom);
+            this.dynamicObjects.attachChild(halfEllipseGeom);
 
             // Add control to halfEllipseGeom.
             halfEllipseGeom.addControl(new Dyn4jBodyControl(halfEllipsePhysic));

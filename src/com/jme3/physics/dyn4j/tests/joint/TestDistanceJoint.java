@@ -29,7 +29,8 @@ public class TestDistanceJoint extends AbstractDyn4jTest {
 
     private void createDistanceJointTest1() {
         // Create box.
-        final Body boxPhysic = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, -10, 1.5f);
+        final Body boxPhysic = this.geometryBuilder.createBoxWithPhysic(this.dynamicObjects, this.dyn4jAppState, -10,
+                1.5f);
 
         final Vector2 anchor1 = this.floorBody.getWorldCenter().copy().add(-7, 0);
         final Vector2 anchor2 = boxPhysic.getWorldCenter().copy().add(-.5d, .5d);
@@ -42,7 +43,8 @@ public class TestDistanceJoint extends AbstractDyn4jTest {
 
     private void createDistanceJointTest2() {
         // Create box.
-        final Body boxPhysic = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, 0, 2.5f);
+        final Body boxPhysic = this.geometryBuilder.createBoxWithPhysic(this.dynamicObjects, this.dyn4jAppState, 0,
+                2.5f);
 
         final Vector2 anchor1 = this.floorBody.getWorldCenter().copy().add(-3, 0);
         final Vector2 anchor2 = boxPhysic.getWorldCenter().copy();
@@ -55,7 +57,8 @@ public class TestDistanceJoint extends AbstractDyn4jTest {
 
     private void createDistanceJointTest3() {
         // Create box.
-        final Body boxPhysic = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, 3, 2.5f);
+        final Body boxPhysic = this.geometryBuilder.createBoxWithPhysic(this.dynamicObjects, this.dyn4jAppState, 3,
+                2.5f);
 
         final Vector2 anchor1 = this.floorBody.getWorldCenter().copy().add(3, 0);
         final Vector2 anchor2 = boxPhysic.getWorldCenter().copy();
@@ -70,8 +73,10 @@ public class TestDistanceJoint extends AbstractDyn4jTest {
 
     private void createDistanceJointTest4() {
         // Create box.
-        final Body boxPhysic1 = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, 3, 12);
-        final Body boxPhysic2 = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, 3, 10);
+        final Body boxPhysic1 = this.geometryBuilder
+                .createBoxWithPhysic(this.dynamicObjects, this.dyn4jAppState, 3, 12);
+        final Body boxPhysic2 = this.geometryBuilder
+                .createBoxWithPhysic(this.dynamicObjects, this.dyn4jAppState, 3, 10);
 
         final Vector2 anchor1 = boxPhysic1.getWorldCenter().copy();
         final Vector2 anchor2 = boxPhysic2.getWorldCenter().copy();

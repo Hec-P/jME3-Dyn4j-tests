@@ -57,7 +57,7 @@ public class TestSimpleSlice extends AbstractDyn4jTest {
 
         // TODO Dyn4j: Create slice.
         // final Spatial sliceGeom = this.geometryBuilder.createSlice(.5f, .5f, .5f, -2, 4);
-        // this.rootNode.attachChild(sliceGeom);
+        // this.dynamicObjects.attachChild(sliceGeom);
 
         // Create slice physic object.
         final Slice sliceShape = new Slice(2.0, FastMath.HALF_PI);

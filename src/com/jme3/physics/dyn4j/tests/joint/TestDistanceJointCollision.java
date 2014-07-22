@@ -21,8 +21,8 @@ public class TestDistanceJointCollision extends AbstractDyn4jTest {
         createFloor(15, 1, 0, 0);
 
         // create two boxes
-        final Body box1 = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, 2, 7.6f);
-        final Body box2 = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, 2, 6.4f);
+        final Body box1 = this.geometryBuilder.createBoxWithPhysic(this.dynamicObjects, this.dyn4jAppState, 2, 7.6f);
+        final Body box2 = this.geometryBuilder.createBoxWithPhysic(this.dynamicObjects, this.dyn4jAppState, 2, 6.4f);
 
         // Create DistanceJoint with collisionAllowed = true
         final Vector2 p1 = box1.getWorldCenter().copy().add(0, -0.4f);
@@ -32,8 +32,8 @@ public class TestDistanceJointCollision extends AbstractDyn4jTest {
         this.dyn4jAppState.getPhysicsSpace().addJoint(distanceJoint1);
 
         // create two boxes
-        final Body box3 = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, -2, 7.6f);
-        final Body box4 = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, -2, 6.4f);
+        final Body box3 = this.geometryBuilder.createBoxWithPhysic(this.dynamicObjects, this.dyn4jAppState, -2, 7.6f);
+        final Body box4 = this.geometryBuilder.createBoxWithPhysic(this.dynamicObjects, this.dyn4jAppState, -2, 6.4f);
 
         // Create DistanceJoint with collisionAllowed = false (collisionAllowed = false by default)
         final Vector2 p3 = box3.getWorldCenter().copy().add(0, -0.4f);

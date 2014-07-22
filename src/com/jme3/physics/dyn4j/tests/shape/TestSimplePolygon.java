@@ -58,7 +58,7 @@ public class TestSimplePolygon extends AbstractDyn4jTest {
 
         // TODO Dyn4j: Create polygon.
         // final Spatial polygonGeom = this.geometryBuilder.createPolygon(.5f, .5f, .5f, -2, 4);
-        // this.rootNode.attachChild(polygonGeom);
+        // this.dynamicObjects.attachChild(polygonGeom);
 
         // Create polygon physic object.
         final Polygon polygonShape = Geometry.createPolygonalCircle(7, 1.5);

@@ -73,7 +73,7 @@ public class TestSquaredPyramidStack extends AbstractDyn4jTest {
 
             // Create box.
             final Spatial squaredPyramidGeom = this.geometryBuilder.createSquaredPyramid(squaredPyramid, posX, posY);
-            this.rootNode.attachChild(squaredPyramidGeom);
+            this.dynamicObjects.attachChild(squaredPyramidGeom);
 
             // Add control to squaredPyramidGeom.
             squaredPyramidGeom.addControl(new Dyn4jBodyControl(trianglePhysicPhysic));

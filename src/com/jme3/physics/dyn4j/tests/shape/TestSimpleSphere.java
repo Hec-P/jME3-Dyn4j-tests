@@ -59,7 +59,7 @@ public class TestSimpleSphere extends AbstractDyn4jTest {
 
         // Create sphere.
         final Spatial sphereGeom = this.geometryBuilder.createSphere(.5f, -2, 4);
-        this.rootNode.attachChild(sphereGeom);
+        this.dynamicObjects.attachChild(sphereGeom);
 
         // Create circle physic object for the sphere.
         final Circle circleShape = new Circle(.5f);

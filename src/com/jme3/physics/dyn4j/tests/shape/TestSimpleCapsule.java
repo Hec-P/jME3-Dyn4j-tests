@@ -59,7 +59,7 @@ public class TestSimpleCapsule extends AbstractDyn4jTest {
 
         // Create capsule.
         final Spatial capsuleGeom = this.geometryBuilder.createCapsule(.5f, 1, -2, 4);
-        this.rootNode.attachChild(capsuleGeom);
+        this.dynamicObjects.attachChild(capsuleGeom);
 
         // Create capsule physic object for the box.
         final Capsule capsuleShape = new Capsule(1.0, 2.0);

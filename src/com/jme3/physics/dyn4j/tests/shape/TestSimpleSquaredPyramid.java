@@ -60,7 +60,7 @@ public class TestSimpleSquaredPyramid extends AbstractDyn4jTest {
 
         // Create squared pyramid.
         final Spatial squaredPyramidGeom = this.geometryBuilder.createSquaredPyramid(.7f, 1, -2, 4);
-        this.rootNode.attachChild(squaredPyramidGeom);
+        this.dynamicObjects.attachChild(squaredPyramidGeom);
 
         // Create a triangle physic object for squared pyramid
         final Triangle triangleShape = new Triangle(new Vector2(0.0, 0.5), new Vector2(-0.5, -0.5), new Vector2(0.5,

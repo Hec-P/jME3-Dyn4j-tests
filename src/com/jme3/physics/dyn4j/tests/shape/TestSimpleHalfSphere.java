@@ -59,7 +59,7 @@ public class TestSimpleHalfSphere extends AbstractDyn4jTest {
 
         // Create half ellipse.
         final Spatial halfEllipseGeom = this.geometryBuilder.createHalfEllipse(2, 2, -2, 4);
-        this.rootNode.attachChild(halfEllipseGeom);
+        this.dynamicObjects.attachChild(halfEllipseGeom);
 
         // Create half ellipse physic object for the box.
         final HalfEllipse halfEllipseShape = new HalfEllipse(2.0, 2.0);

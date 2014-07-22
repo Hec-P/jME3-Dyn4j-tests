@@ -60,7 +60,7 @@ public class TestSimpleQuad extends AbstractDyn4jTest {
 
         // Create quad.
         final Spatial quadGeom = this.geometryBuilder.createQuad(1, 1, -2, 4);
-        this.rootNode.attachChild(quadGeom);
+        this.dynamicObjects.attachChild(quadGeom);
 
         // Create segment physic object for the quad.
         final Segment quadShape = new Segment(new Vector2(0.0, 0.0), new Vector2(0.0, 1.0));

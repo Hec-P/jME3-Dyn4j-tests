@@ -27,10 +27,10 @@ public class TestDistanceJointWagon extends AbstractDyn4jTest {
         createFloor(3, .2f, -5, .8f, (float) Math.toRadians(-30));
 
         // create two circles (the wheels)
-        final Body wheel1 = this.geometryBuilder.createSphereWithPhysic(this.rootNode, this.dyn4jAppState, .5f, -1.5f,
-                7.5f);
-        final Body wheel2 = this.geometryBuilder.createSphereWithPhysic(this.rootNode, this.dyn4jAppState, .5f, -2.9f,
-                8);
+        final Body wheel1 = this.geometryBuilder.createSphereWithPhysic(this.dynamicObjects, this.dyn4jAppState, .5f,
+                -1.5f, 7.5f);
+        final Body wheel2 = this.geometryBuilder.createSphereWithPhysic(this.dynamicObjects, this.dyn4jAppState, .5f,
+                -2.9f, 8);
 
         // Create DistanceJoint
         final Vector2 p1 = wheel1.getWorldCenter().copy();

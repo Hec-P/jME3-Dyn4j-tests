@@ -61,7 +61,7 @@ public class TestSimpleBox extends AbstractDyn4jTest {
 
         // Create box.
         final Spatial boxGeom = this.geometryBuilder.createBox(.5f, .5f, .5f, -2, 4);
-        this.rootNode.attachChild(boxGeom);
+        this.dynamicObjects.attachChild(boxGeom);
 
         // Create rectangle physic object for the box.
         final Rectangle boxShape = new Rectangle(1.0, 1.0);

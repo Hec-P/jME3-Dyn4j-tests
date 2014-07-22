@@ -68,7 +68,7 @@ public class TestCapsuleStack extends AbstractDyn4jTest {
 
             // Create sphere.
             final Spatial capsuleGeom = this.geometryBuilder.createCapsule(.25f, 1, posX, posY);
-            this.rootNode.attachChild(capsuleGeom);
+            this.dynamicObjects.attachChild(capsuleGeom);
 
             // Add control to capsuleGeom.
             capsuleGeom.addControl(new Dyn4jBodyControl(capsulePhysic));

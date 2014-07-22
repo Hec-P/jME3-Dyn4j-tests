@@ -20,7 +20,8 @@ public class TestMouseJoint extends AbstractDyn4jTest {
         createFloor(15, 1, 0, 0);
 
         // Create box.
-        final Body boxPhysic = this.geometryBuilder.createBoxWithPhysic(this.rootNode, this.dyn4jAppState, 0, 1.5f);
+        final Body boxPhysic = this.geometryBuilder.createBoxWithPhysic(this.dynamicObjects, this.dyn4jAppState, 0,
+                1.5f);
 
         final Vector2 anchor = boxPhysic.getWorldCenter().copy().add(0, .3);
         final MouseJoint mouseJoint = new MouseJoint(boxPhysic, anchor, 5, 0.3, 100);

@@ -51,7 +51,7 @@ public class TestDistanceJointNewtonsCradle extends AbstractDyn4jTest {
 
             // Create sphere.
             final Spatial sphereGeom = this.geometryBuilder.createSphere(sphere, posX, posY);
-            this.rootNode.attachChild(sphereGeom);
+            this.dynamicObjects.attachChild(sphereGeom);
 
             // Add control to sphereGeom.
             sphereGeom.addControl(new Dyn4jBodyControl(spherePhysic));

@@ -73,6 +73,15 @@ public class PhysicObjectBuilder {
         return bodyPhysic;
     }
 
+    public Body createBody(final BodyFixture fixture, final double posX, final double posY) {
+        final Body bodyPhysic = new Body();
+        bodyPhysic.addFixture(fixture);
+        bodyPhysic.setMass();
+        bodyPhysic.translate(posX, posY);
+
+        return bodyPhysic;
+    }
+
     public Body createRectangle(final double width, final double height, final double posX, final double posY) {
         final Rectangle shape = new Rectangle(width, height);
         final Body body = createBody(shape, posX, posY);

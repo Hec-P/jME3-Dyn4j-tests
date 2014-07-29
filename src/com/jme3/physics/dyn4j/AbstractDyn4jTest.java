@@ -40,6 +40,7 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
 import com.jme3.cursors.plugins.JmeCursor;
+import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
@@ -89,6 +90,8 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
         this.stateManager.attach(this.dyn4jAppState);
 
         setDisplayStatView(false);
+
+        displayGUI();
 
         // Initialize builder classes.
         this.physicObjectBuilder = new PhysicObjectBuilder();
@@ -148,13 +151,27 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
     }
 
     private void initKeys() {
-        this.inputManager.addMapping(ACTION_ENABLE_DEBUG, new KeyTrigger(KeyInput.KEY_1));
-        this.inputManager.addMapping(ACTION_ENABLE_PHYSIC, new KeyTrigger(KeyInput.KEY_2));
+        this.inputManager.addMapping(ACTION_ENABLE_PHYSIC, new KeyTrigger(KeyInput.KEY_1));
+        this.inputManager.addMapping(ACTION_ENABLE_DEBUG, new KeyTrigger(KeyInput.KEY_2));
 
         this.inputManager.addMapping(ACTION_SELECT_GEOM, new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
 
         this.inputManager.addListener(this.actionListener, ACTION_ENABLE_DEBUG, ACTION_ENABLE_PHYSIC,
                 ACTION_SELECT_GEOM);
+    }
+
+    private void displayGUI() {
+        final StringBuilder text = new StringBuilder();
+        text.append("1 - Start/Pause Physics");
+        text.append("\n2 - Enable/Disable Debug Mode (When running physics)");
+        text.append("\nLeft Button - Drag Dynamic Objects");
+
+        final BitmapText keyText = new BitmapText(this.guiFont, false);
+        keyText.setLocalTranslation(0, this.settings.getHeight(), 0);
+        keyText.setText(text.toString());
+        keyText.setSize(14);
+        // keyText.setCullHint(showFps ? CullHint.Never : CullHint.Always);
+        this.guiNode.attachChild(keyText);
     }
 
     private final ActionListener actionListener = new ActionListener() {

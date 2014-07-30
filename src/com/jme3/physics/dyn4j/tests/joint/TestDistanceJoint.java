@@ -17,14 +17,17 @@ public class TestDistanceJoint extends AbstractDyn4jTest {
 
     @Override
     protected void simpleInit() {
-        getCamera().setLocation(new Vector3f(0, 5, 20));
-
         this.floorBody = createFloor(15, 1, 0, 5);
 
         createDistanceJointTest1();
         createDistanceJointTest2();
         createDistanceJointTest3();
         createDistanceJointTest4();
+    }
+
+    @Override
+    protected Vector3f getCamInitialLocation() {
+        return new Vector3f(0, 5, 20);
     }
 
     private void createDistanceJointTest1() {

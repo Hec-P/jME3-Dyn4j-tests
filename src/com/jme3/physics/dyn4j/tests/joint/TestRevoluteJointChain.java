@@ -23,8 +23,6 @@ public class TestRevoluteJointChain extends AbstractDyn4jTest {
 
     @Override
     protected void simpleInit() {
-        getCamera().setLocation(new Vector3f(0, 0, 17));
-
         final Body floorBody = createFloor(15, 1, 0, -4);
 
         // create a reusable rectangle
@@ -63,6 +61,11 @@ public class TestRevoluteJointChain extends AbstractDyn4jTest {
             posX += w - overlap * 2.0;
             previous = boxPhysic;
         }
+    }
+
+    @Override
+    protected Vector3f getCamInitialLocation() {
+        return new Vector3f(0, 0, 17);
     }
 
 }

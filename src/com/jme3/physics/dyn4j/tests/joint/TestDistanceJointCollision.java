@@ -15,8 +15,6 @@ public class TestDistanceJointCollision extends AbstractDyn4jTest {
 
     @Override
     protected void simpleInit() {
-        getCamera().setLocation(new Vector3f(0, 5, 20));
-
         // Create floor
         createFloor(15, 1, 0, 0);
 
@@ -41,4 +39,10 @@ public class TestDistanceJointCollision extends AbstractDyn4jTest {
         final DistanceJoint distanceJoint2 = new DistanceJoint(box3, box4, p3, p4);
         this.dyn4jAppState.getPhysicsSpace().addJoint(distanceJoint2);
     }
+
+    @Override
+    protected Vector3f getCamInitialLocation() {
+        return new Vector3f(0, 5, 20);
+    }
+
 }

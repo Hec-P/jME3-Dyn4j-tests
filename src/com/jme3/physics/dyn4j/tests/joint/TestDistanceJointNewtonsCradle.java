@@ -22,8 +22,6 @@ public class TestDistanceJointNewtonsCradle extends AbstractDyn4jTest {
 
     @Override
     protected void simpleInit() {
-        getCamera().setLocation(new Vector3f(0, 0, 20));
-
         // Create floor
         final Body floor = createFloor(15, 1, 0, 4);
 
@@ -68,6 +66,11 @@ public class TestDistanceJointNewtonsCradle extends AbstractDyn4jTest {
 
         // move the last body
         e.rotate(Math.toRadians(60), 2, 4);
+    }
+
+    @Override
+    protected Vector3f getCamInitialLocation() {
+        return new Vector3f(0, 0, 20);
     }
 
 }

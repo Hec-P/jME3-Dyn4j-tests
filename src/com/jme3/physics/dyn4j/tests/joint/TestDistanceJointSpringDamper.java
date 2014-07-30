@@ -18,8 +18,6 @@ public class TestDistanceJointSpringDamper extends AbstractDyn4jTest {
 
     @Override
     protected void simpleInit() {
-        getCamera().setLocation(new Vector3f(0, 0, 20));
-
         createFloor(15, 1, 0, -4);
 
         final Rectangle r = new Rectangle(3.0, 0.5);
@@ -77,6 +75,11 @@ public class TestDistanceJointSpringDamper extends AbstractDyn4jTest {
         j4.setDampingRatio(0.4);
         this.dyn4jAppState.getPhysicsSpace().addJoint(j4);
 
+    }
+
+    @Override
+    protected Vector3f getCamInitialLocation() {
+        return new Vector3f(0, 0, 20);
     }
 
 }

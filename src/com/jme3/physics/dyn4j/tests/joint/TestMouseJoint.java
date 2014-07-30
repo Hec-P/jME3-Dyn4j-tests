@@ -15,8 +15,6 @@ public class TestMouseJoint extends AbstractDyn4jTest {
 
     @Override
     protected void simpleInit() {
-        getCamera().setLocation(new Vector3f(0, 5, 20));
-
         createFloor(15, 1, 0, 0);
 
         // Create box.
@@ -29,6 +27,11 @@ public class TestMouseJoint extends AbstractDyn4jTest {
         mouseJoint.setTarget(new Vector2(0, 8));
 
         this.dyn4jAppState.getPhysicsSpace().addJoint(mouseJoint);
+    }
+
+    @Override
+    protected Vector3f getCamInitialLocation() {
+        return new Vector3f(0, 5, 20);
     }
 
 }

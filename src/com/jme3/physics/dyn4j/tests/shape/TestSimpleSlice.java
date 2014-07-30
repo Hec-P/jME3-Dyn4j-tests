@@ -35,7 +35,6 @@ import org.dyn4j.dynamics.Body;
 import org.dyn4j.geometry.Slice;
 
 import com.jme3.math.FastMath;
-import com.jme3.math.Vector3f;
 import com.jme3.physics.dyn4j.AbstractDyn4jTest;
 
 /**
@@ -50,8 +49,6 @@ public class TestSimpleSlice extends AbstractDyn4jTest {
 
     @Override
     protected void simpleInit() {
-        getCamera().setLocation(new Vector3f(0, 0, 15));
-
         // Create floor.
         createFloor(15, 1, 0, -4);
 

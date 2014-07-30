@@ -63,12 +63,15 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
 
     private static final String ACTION_ENABLE_DEBUG = "enableDebug";
     private static final String ACTION_ENABLE_PHYSIC = "enablePhysic";
+    private static final String ACTION_ENABLE_FLY_CAM = "enableFlyCam";
 
     private static final String ACTION_SELECT_GEOM = "selectGeometry";
+    private static final String ACTION_RESET_CAM = "resetCam";
 
     protected Dyn4jAppState dyn4jAppState = null;
     private boolean debugEnabled = true;
     private boolean physicEnabled = false;
+    private boolean flyCamEnabled = false;
 
     protected GeometryBuilder geometryBuilder = null;
     protected PhysicObjectBuilder physicObjectBuilder = null;
@@ -97,12 +100,12 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
         this.physicObjectBuilder = new PhysicObjectBuilder();
         this.geometryBuilder = new GeometryBuilder(this.assetManager, this.physicObjectBuilder);
 
-        this.flyCam.setEnabled(false);
-        // this.inputManager.setCursorVisible(false);
+        this.flyCam.setEnabled(this.flyCamEnabled);
+        this.flyCam.setMoveSpeed(10);
+
+        this.cam.setLocation(getCamInitialLocation());
+
         this.inputManager.setMouseCursor((JmeCursor) this.assetManager.loadAsset("Textures/Cursors/Green-cursor.cur"));
-        // Change flyCamera move speed.
-        // getFlyByCamera().setMoveSpeed(10);
-        // getCamera().setLocation(new Vector3f(0, 10, 40));
 
         this.rootNode.attachChild(this.staticObjects);
         this.rootNode.attachChild(this.dynamicObjects);
@@ -114,7 +117,7 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
 
     @Override
     public void simpleUpdate(final float tpf) {
-        if (this.mouseJoint != null) {
+        if (!this.flyCamEnabled && this.mouseJoint != null) {
             final Vector3f pos = this.contactPoint.clone();
             final Vector3f localPos = pos.subtract(this.cam.getLocation());
             final float dist = this.cam.getDirection().dot(localPos);
@@ -126,6 +129,10 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
             this.mouseJoint.setTarget(Converter.toVector2(cursorPos3f));
 
         }
+    }
+
+    protected Vector3f getCamInitialLocation() {
+        return new Vector3f(0, 0, 15);
     }
 
     protected abstract void simpleInit();
@@ -153,18 +160,22 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
     private void initKeys() {
         this.inputManager.addMapping(ACTION_ENABLE_PHYSIC, new KeyTrigger(KeyInput.KEY_1));
         this.inputManager.addMapping(ACTION_ENABLE_DEBUG, new KeyTrigger(KeyInput.KEY_2));
+        this.inputManager.addMapping(ACTION_ENABLE_FLY_CAM, new KeyTrigger(KeyInput.KEY_3));
 
         this.inputManager.addMapping(ACTION_SELECT_GEOM, new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
+        this.inputManager.addMapping(ACTION_RESET_CAM, new KeyTrigger(KeyInput.KEY_R));
 
         this.inputManager.addListener(this.actionListener, ACTION_ENABLE_DEBUG, ACTION_ENABLE_PHYSIC,
-                ACTION_SELECT_GEOM);
+                ACTION_ENABLE_FLY_CAM, ACTION_RESET_CAM, ACTION_SELECT_GEOM);
     }
 
     private void displayGUI() {
         final StringBuilder text = new StringBuilder();
         text.append("1 - Start/Pause Physics");
         text.append("\n2 - Enable/Disable Debug Mode (When running physics)");
-        text.append("\nLeft Button - Drag Dynamic Objects");
+        text.append("\n3 - Enable/Disable Fly Cam");
+        text.append("\nR - Reset Cam");
+        text.append("\nLeft Button - Drag Dynamic Objects (When fly cam disabled)");
 
         final BitmapText keyText = new BitmapText(this.guiFont, false);
         keyText.setLocalTranslation(0, this.settings.getHeight(), 0);
@@ -181,11 +192,24 @@ public abstract class AbstractDyn4jTest extends SimpleApplication {
                 AbstractDyn4jTest.this.debugEnabled = !AbstractDyn4jTest.this.debugEnabled;
                 AbstractDyn4jTest.this.dyn4jAppState.setDebugEnabled(AbstractDyn4jTest.this.debugEnabled);
             }
+
             if (name.equals(ACTION_ENABLE_PHYSIC) && !keyPressed) {
                 AbstractDyn4jTest.this.physicEnabled = !AbstractDyn4jTest.this.physicEnabled;
                 AbstractDyn4jTest.this.dyn4jAppState.setEnabled(AbstractDyn4jTest.this.physicEnabled);
             }
-            if (name.equals(ACTION_SELECT_GEOM)) {
+
+            if (name.equals(ACTION_ENABLE_FLY_CAM) && !keyPressed) {
+                AbstractDyn4jTest.this.flyCamEnabled = !AbstractDyn4jTest.this.flyCamEnabled;
+                AbstractDyn4jTest.this.flyCam.setEnabled(AbstractDyn4jTest.this.flyCamEnabled);
+                AbstractDyn4jTest.this.inputManager.setCursorVisible(!AbstractDyn4jTest.this.flyCamEnabled);
+            }
+
+            if (name.equals(ACTION_RESET_CAM) && !keyPressed) {
+                AbstractDyn4jTest.this.cam.setLocation(getCamInitialLocation());
+                AbstractDyn4jTest.this.cam.lookAt(getCamInitialLocation().add(0, 0, -10), Vector3f.UNIT_Y);
+            }
+
+            if (!AbstractDyn4jTest.this.flyCamEnabled && name.equals(ACTION_SELECT_GEOM)) {
 
                 if (keyPressed) {
                     final Vector2f cursorPos2f = AbstractDyn4jTest.this.inputManager.getCursorPosition();

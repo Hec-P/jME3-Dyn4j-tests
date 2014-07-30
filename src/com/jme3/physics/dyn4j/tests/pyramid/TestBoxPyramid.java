@@ -58,8 +58,6 @@ public class TestBoxPyramid extends AbstractDyn4jTest {
 
     @Override
     protected void simpleInit() {
-        getCamera().setLocation(new Vector3f(0, 5, 20));
-
         // Create floor.
         createFloor(15, 1, 0, 0);
 
@@ -109,6 +107,11 @@ public class TestBoxPyramid extends AbstractDyn4jTest {
                 posX += width + xspacing;
             }
         }
+    }
+
+    @Override
+    protected Vector3f getCamInitialLocation() {
+        return new Vector3f(0, 5, 20);
     }
 
 }

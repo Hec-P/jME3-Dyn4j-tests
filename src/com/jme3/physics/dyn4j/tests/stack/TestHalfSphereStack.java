@@ -53,8 +53,6 @@ public class TestHalfSphereStack extends AbstractDyn4jTest {
 
     @Override
     protected void simpleInit() {
-        getCamera().setLocation(new Vector3f(0, 0, 15));
-
         // Create floor.
         createFloor(15, 1, 0, -4);
 

@@ -24,8 +24,6 @@ public class TestRevoluteJointBridge extends AbstractDyn4jTest {
 
     @Override
     protected void simpleInit() {
-        getCamera().setLocation(new Vector3f(0, 5, 30));
-
         final Body floorBody = createFloor(25, 1, 0, -4);
 
         // create a reusable rectangle
@@ -69,6 +67,11 @@ public class TestRevoluteJointBridge extends AbstractDyn4jTest {
         // create a joint from the previous body to this body
         final RevoluteJoint joint = new RevoluteJoint(previous, floorBody, anchor);
         this.dyn4jAppState.getPhysicsSpace().addJoint(joint);
+    }
+
+    @Override
+    protected Vector3f getCamInitialLocation() {
+        return new Vector3f(0, 5, 20);
     }
 
 }

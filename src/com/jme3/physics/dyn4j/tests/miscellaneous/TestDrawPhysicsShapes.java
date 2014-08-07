@@ -39,6 +39,7 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.physics.dyn4j.debug.shape.CapsuleDebug;
 import com.jme3.physics.dyn4j.debug.shape.CircleDebug;
+import com.jme3.physics.dyn4j.debug.shape.CrossDebug;
 import com.jme3.physics.dyn4j.debug.shape.HalfEllipseDebug;
 import com.jme3.physics.dyn4j.debug.shape.SliceDebug;
 import com.jme3.scene.Geometry;
@@ -161,10 +162,117 @@ public class TestDrawPhysicsShapes extends SimpleApplication {
         // Half ellipse
         this.rootNode.attachChild(buildHalfEllipseMesh(2, 1, 17, Mode.LineLoop));
 
-        // ########## Line 1
+        // ########## Line 2
         // Half ellipse
         this.rootNode.attachChild(buildHalfEllipse(2, 1, 17, 180 / 15));
 
+        // Cross
+        this.rootNode.attachChild(buildCross(0.5f, 12));
+
+        // Cross geom
+        this.rootNode.attachChild(buildGeom(0.5f, 10));
+
+    }
+
+    private Geometry buildGeom(final float segmentSize, final float pos_x) {
+        final CrossDebug cross = new CrossDebug(0.5f);
+        cross.setLineWidth(2);
+
+        // Creating a geometry, and apply a single color material to it
+        final Geometry geom = new Geometry("OurMesh", cross);
+
+        geom.setLocalTranslation(pos_x, 7, 0);
+        geom.setMaterial(this.mat);
+
+        return geom;
+    }
+
+    private Geometry buildCross(final float segmentSize, final float pos_x) {
+        final Mode meshMode = Mode.Lines;
+
+        // Vertex positions in space
+        final Vector3f[] vertices = new Vector3f[4];
+        vertices[0] = new Vector3f(segmentSize, segmentSize, 0);
+        vertices[1] = new Vector3f(-segmentSize, segmentSize, 0);
+        vertices[2] = new Vector3f(-segmentSize, -segmentSize, 0);
+        vertices[3] = new Vector3f(segmentSize, -segmentSize, 0);
+
+        // Texture coordinates
+        // final Vector2f[] texCoord = new Vector2f[7];
+        // texCoord[0] = new Vector2f(0.5f, 0);
+        // texCoord[1] = new Vector2f(1, 0.3f);
+        // texCoord[2] = new Vector2f(1, 0.6f);
+        // texCoord[3] = new Vector2f(0.5f, 1);
+        // texCoord[4] = new Vector2f(0, 0.6f);
+        // texCoord[5] = new Vector2f(0, 0.3f);
+        // texCoord[6] = new Vector2f(0.5f, 0.5f);
+
+        // Indexes. We define the order in which mesh should be constructed
+        final Mesh m = new Mesh();
+        m.setMode(meshMode);
+
+        short[] indexes = null;
+        switch (meshMode) {
+        case LineLoop:
+            indexes = new short[] { 6, 0, 1, 6, 1, 2, 6, 2, 3, 6, 3, 4, 6, 4, 5, 6, 5, 0 };
+            // LineLoop usa el primer vertice del arreglo para cerrar el poligono
+            // Ver ejemplo:
+            // indexes = new short[] { 6, 0, 1, 2 };
+            m.setLineWidth(3);
+            break;
+
+        case LineStrip:
+            indexes = new short[] { 6, 0, 1, 6, 1, 2, 6, 2, 3, 6, 3, 4, 6, 4, 5, 6, 5, 0 };
+            // LineStrip no usa el primer vertice para cerrar el poligono, lo deja abierto
+            // Ver ejemplo:
+            // indexes = new short[] { 6, 0, 1, 2 };
+            m.setLineWidth(2);
+            break;
+
+        case Lines:
+            indexes = new short[] { 0, 2, 1, 3 };
+            // Igual a usar LineLoop con indexes = new short[] { 0, 1, 2, 3, 4, 5 };
+            // Igual a usar LineStrip con indexes = new short[] { 0, 1, 2, 3, 4, 5, 0 };
+            m.setLineWidth(2);
+            break;
+
+        case Triangles:
+            indexes = new short[] { 6, 0, 1, 6, 1, 2, 6, 2, 3, 6, 3, 4, 6, 4, 5, 6, 5, 0 };
+            m.setLineWidth(4);
+            break;
+
+        case TriangleFan:
+            indexes = new short[] { 6, 0, 1, 2, 3, 4, 5, 0 };
+            m.setLineWidth(3);
+            break;
+
+        case TriangleStrip:
+            // Parece no ser tan bueno para dibujar como TriangleFan, porque necesitas mas vertices para figuras
+            // cerradas
+            indexes = new short[] { 0, 1, 6, 2, 3, 6, 4, 5, 6, 0 };
+            m.setLineWidth(2);
+            break;
+
+        default:
+            m.setMode(Mode.Points);
+            indexes = new short[] { 0, 1, 2, 3 };
+            m.setPointSize(5);
+            break;
+        }
+
+        // Setting buffers
+        m.setBuffer(Type.Position, 3, BufferUtils.createFloatBuffer(vertices));
+        // m.setBuffer(Type.TexCoord, 2, BufferUtils.createFloatBuffer(texCoord));
+        m.setBuffer(Type.Index, 1, BufferUtils.createShortBuffer(indexes));
+        m.updateBound();
+
+        // Creating a geometry, and apply a single color material to it
+        final Geometry geom = new Geometry("OurMesh", m);
+
+        geom.setLocalTranslation(pos_x, 7, 0);
+        geom.setMaterial(this.mat);
+
+        return geom;
     }
 
     private Spatial buildHalfEllipseMesh(final float xRadius, final float yRadius, final float pos_x,

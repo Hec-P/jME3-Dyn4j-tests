@@ -7,10 +7,10 @@ import org.dyn4j.geometry.Vector2;
 import com.jme3.math.Vector3f;
 import com.jme3.physics.dyn4j.AbstractDyn4jTest;
 
-public class TestWeldJointWeld extends AbstractDyn4jTest {
+public class TestWeldJoint extends AbstractDyn4jTest {
 
     public static void main(final String[] args) {
-        new TestWeldJointWeld().start();
+        new TestWeldJoint().start();
     }
 
     @Override

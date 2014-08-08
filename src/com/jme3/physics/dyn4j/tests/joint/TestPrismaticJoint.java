@@ -8,10 +8,10 @@ import com.jme3.math.Vector3f;
 import com.jme3.physics.dyn4j.AbstractDyn4jTest;
 import com.jme3.physics.dyn4j.Converter;
 
-public class TestPrismaticJointPrismatic extends AbstractDyn4jTest {
+public class TestPrismaticJoint extends AbstractDyn4jTest {
 
     public static void main(final String[] args) {
-        new TestPrismaticJointPrismatic().start();
+        new TestPrismaticJoint().start();
     }
 
     @Override
